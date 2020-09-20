@@ -12,10 +12,12 @@ router.get('/user/:id', [checkJwt], UserController.getUser)
 
 router.post('/gain/save', [checkJwt], GainController.save)
 router.delete('/gain/remove/:id', [checkJwt], GainController.remove)
-router.get('/gain/', [checkJwt], GainController.getAllGain)
+router.post('/gain/total', [checkJwt], GainController.sumOfWins)
+router.post('/gain', [checkJwt], GainController.getAllGain)
 
 router.post('/loss/save', [checkJwt], LossController.save)
 router.delete('/loss/remove/:id', [checkJwt], LossController.remove)
-router.get('/loss/', [checkJwt], LossController.getAllLoss)
+router.post('/loss/total', [checkJwt], LossController.sumOfLoss)
+router.post('/loss', [checkJwt], LossController.getAllLoss)
 
 export { router }
