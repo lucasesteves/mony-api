@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Loss from '../model/Gain';
+import Loss from '../model/Loss';
 
 interface ILoss {
     userId:string,
