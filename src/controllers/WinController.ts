@@ -20,7 +20,7 @@ export default {
         try{
             const { userId, month, year } : ISelect = req.body
     
-            const list = await Gain.find({userId:userId, month:month,year:year}).lean();
+            const list = await Gain.find({userId:userId, month:month,year:year},{name:1, value:1}).lean();
             return res.status(200).send(list);
         }catch(err) {
             return res.status(500).send(err.message);
@@ -61,7 +61,7 @@ export default {
     
     async remove(req:Request,res:Response) {
         try {
-            const { id } : any = req.params;
+            const id : string = req.params.id;
             const gain = await Gain.deleteOne({'_id' : id});
             if(!gain) { return res.sendStatus(200).send({message:'Conteúdo não encontrado!'})};
             return res.status(200).send({message:'Conteúdo excluido!'});

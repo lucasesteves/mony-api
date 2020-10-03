@@ -15,7 +15,7 @@ interface ICredencial {
 
 export default {
     async getUser(req: Request,res: Response){
-        const { id } : any = req.params
+        const id : string = req.params.id
         const user = await User.find(mongoose.Types.ObjectId(id)).lean();
         return res.status(200).send(user);
     },
@@ -46,15 +46,17 @@ export default {
     async login(req:Request,res:Response) {
         try {
             const { email, password } : ICredencial = req.body;
+            console.log(req.body)
             const user = await User.findOne({email : email});
-            if(!user){ return res.status(200).send({ message : 'Esse e-mail não existe', user : false}) }
+            if(!user){ return res.status(401).send({ message : 'Esse e-mail não existe', user : false}) }
             const verifyPassword = await bcrypt.compareSync(password, user.password)
             if(!verifyPassword){
-                return res.status(200).send({ message : 'Senha ou Email estão errados', user : false})
+                return res.status(401).send({ message : 'Senha ou Email estão errados', user : false})
             } 
             const token = jwt.sign({ id : user._id }, auth.secret, {
                 expiresIn : 86400000,
             });
+            console.log({ user, token })
             return res.status(200).send({ user, token });
         }catch(err) {
             return res.status(500).send(err.message);

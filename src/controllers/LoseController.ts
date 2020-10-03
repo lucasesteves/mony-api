@@ -61,7 +61,7 @@ export default {
     
     async remove(req:Request,res:Response) {
         try {
-            const { id } : any = req.params;
+            const  id : string = req.params.id;
             const loss = await Loss.deleteOne({'_id' : id});
             if(!loss) { return res.status(200).send({message:'Conteúdo não encontrado!'})};
             return res.status(200).send({message:'Conteúdo excluido!'});

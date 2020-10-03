@@ -16,7 +16,6 @@ export default {
             let totalLoss = 0
             let totalWin = 0
             const listLoss = await Loss.find({userId:userId, month:month,year:year}).lean();
-            console.log(listLoss)
             listLoss.length>0 && listLoss.map(e=>{
                 totalLoss += parseFloat(e.value)
             })
@@ -26,7 +25,6 @@ export default {
             })
 
             const diff = totalWin - totalLoss
-            
             return res.status(200).send({totalWin:totalWin, totalLoss:totalLoss, diff:diff});
         }catch(err) {
             return res.status(500).send(err.message);
