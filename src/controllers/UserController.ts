@@ -55,7 +55,12 @@ export default {
             const token = jwt.sign({ id : user._id }, auth.secret, {
                 expiresIn : 86400000,
             });
-            return res.status(200).send({ user, token });
+            const credential = {
+                id:user._id,
+                name:user.name,
+                email:user.email
+            }
+            return res.status(200).send({ user:credential, token });
         }catch(err) {
             return res.status(500).send(err.message);
         }
