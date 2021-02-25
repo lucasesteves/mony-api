@@ -3,13 +3,13 @@ import jwt from 'jsonwebtoken';
 import endpoint from '../config/auth';
 
 export const checkJwt = (req: Request,res: Response, next:NextFunction)=>{
-    let auth =  req.headers.authorization;
+    const auth = req.headers["authorization"] ;
     if (!auth) {
         return res.status(401).send({ auth: false, message: 'Token não encontrado!' });
     }
-    jwt.verify(auth, endpoint.secret, async (err) =>{
+    jwt.verify(auth, endpoint.secret, (err) =>{
         if(err){
-        return res.status(401).send({ message : 'Autenticação não é valida!'});
+            return res.status(403).send({ auth:false, message : 'Token inválido!'});
         }
         next();
     });

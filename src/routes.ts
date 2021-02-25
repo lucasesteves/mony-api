@@ -7,8 +7,8 @@ import { checkJwt } from './middleware/authentication';
 
 const router = Router()
 
-router.post('/login',UserController.login)
-router.post('/register',UserController.create)
+router.post('/login', UserController.login)
+router.post('/register', UserController.create)
 router.get('/user/:id', [checkJwt], UserController.getUser)
 
 router.post('/dashboard', [checkJwt], DashboardController.getDifference)
