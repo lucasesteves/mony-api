@@ -7,7 +7,7 @@ import { checkJwt } from "./middleware/authentication";
 
 const router = Router();
 
-router.get("/login", (res: Response) => res.send("ok"));
+router.get("/test", (res: Response) => res.send("ok"));
 router.post("/login", UserController.login);
 router.post("/register", UserController.create);
 router.get("/user/:id", [checkJwt], UserController.getUser);
